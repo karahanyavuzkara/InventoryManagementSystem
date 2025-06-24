@@ -12,8 +12,7 @@
     "resources": "resources.json",
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
-      "version": "1.18.0",
-      "toolsId": "c11fc1eb-7c1f-4757-b503-4defb74dd524"
+      "version": "1.18.0"
     },
     "dataSources": {
       "annotation": {
@@ -38,14 +37,6 @@
   },
   "sap.ui": {
     "technology": "UI5",
-    "icons": {
-      "icon": "",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
-    },
     "deviceTypes": {
       "desktop": true,
       "tablet": true,
@@ -81,17 +72,9 @@
           "autoExpandSelect": true,
           "earlyRequests": true
         }
-      },
-      "@i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "uri": "i18n/i18n.properties"
       }
     },
-    "resources": {
-      "css": []
-    },
     "routing": {
-      "config": {},
       "routes": [
         {
           "pattern": ":?query:",
@@ -124,7 +107,31 @@
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
                     "type": "ResponsiveTable"
-                  }
+                  },
+                  "content": [
+                    {
+                      "value": "{name}",
+                      "label": "Product Name",
+                      "type": "DataFieldForNavigation",
+                      "target": "ProductsObjectPage"
+                    },
+                    {
+                      "value": "{category}",
+                      "label": "Category"
+                    },
+                    {
+                      "value": "{description}",
+                      "label": "Description"
+                    },
+                    {
+                      "value": "{createdAt}",
+                      "label": "Created At"
+                    },
+                    {
+                      "value": "{unitOfMeasure}",
+                      "label": "Unit"
+                    }
+                  ]
                 }
               }
             }
@@ -145,7 +152,6 @@
     }
   },
   "sap.fiori": {
-    "registrationIds": [],
     "archeType": "transactional"
   }
 }
