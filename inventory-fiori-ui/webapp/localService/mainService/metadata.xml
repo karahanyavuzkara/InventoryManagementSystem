@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="InventoryService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotation Term="Core.Links">
+                <Collection>
+                    <Record>
+                        <PropertyValue Property="rel" String="author"/>
+                        <PropertyValue Property="href" String="https://cap.cloud.sap"/>
+                    </Record>
+                </Collection>
+            </Annotation>
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Products" EntityType="InventoryService.Products"/>
+                <EntitySet Name="Warehouses" EntityType="InventoryService.Warehouses"/>
+                <EntitySet Name="StockLevels" EntityType="InventoryService.StockLevels">
+                    <NavigationPropertyBinding Path="product" Target="Products"/>
+                    <NavigationPropertyBinding Path="warehouse" Target="Warehouses"/>
+                </EntitySet>
+                <EntitySet Name="StockMovements" EntityType="InventoryService.StockMovements">
+                    <NavigationPropertyBinding Path="product" Target="Products"/>
+                    <NavigationPropertyBinding Path="fromWarehouse" Target="Warehouses"/>
+                    <NavigationPropertyBinding Path="toWarehouse" Target="Warehouses"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="Products">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+                <Property Name="description" Type="Edm.String" MaxLength="255"/>
+                <Property Name="category" Type="Edm.String" MaxLength="50"/>
+                <Property Name="unitOfMeasure" Type="Edm.String" MaxLength="10"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+            </EntityType>
+            <EntityType Name="Warehouses">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="100"/>
+                <Property Name="location" Type="Edm.String" MaxLength="255"/>
+                <Property Name="capacity" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="StockLevels">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="product" Type="InventoryService.Products">
+                    <ReferentialConstraint Property="product_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="product_ID" Type="Edm.Guid"/>
+                <NavigationProperty Name="warehouse" Type="InventoryService.Warehouses">
+                    <ReferentialConstraint Property="warehouse_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="warehouse_ID" Type="Edm.Guid"/>
+                <Property Name="quantity" Type="Edm.Int32"/>
+                <Property Name="minStockLevel" Type="Edm.Int32"/>
+                <Property Name="updatedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+            </EntityType>
+            <EntityType Name="StockMovements">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="product" Type="InventoryService.Products">
+                    <ReferentialConstraint Property="product_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="product_ID" Type="Edm.Guid"/>
+                <NavigationProperty Name="fromWarehouse" Type="InventoryService.Warehouses">
+                    <ReferentialConstraint Property="fromWarehouse_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="fromWarehouse_ID" Type="Edm.Guid"/>
+                <NavigationProperty Name="toWarehouse" Type="InventoryService.Warehouses">
+                    <ReferentialConstraint Property="toWarehouse_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="toWarehouse_ID" Type="Edm.Guid"/>
+                <Property Name="quantity" Type="Edm.Int32"/>
+                <Property Name="movementType" Type="Edm.String" MaxLength="20"/>
+                <Property Name="movementDate" Type="Edm.Date"/>
+            </EntityType>
+            <Annotations Target="InventoryService.Products/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="InventoryService.Warehouses/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="InventoryService.StockLevels/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="InventoryService.StockMovements/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
