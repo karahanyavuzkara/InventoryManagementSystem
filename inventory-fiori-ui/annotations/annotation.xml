@@ -1,0 +1,72 @@
+<Annotations Target="ims.Products">
+
+    <Annotation Term="UI.LineItem">
+        <Collection>
+            <Record Type="UI.DataFieldForNavigation">
+                <PropertyValue Property="Label" String="Name"/>
+                <PropertyValue Property="Value" Path="name"/>
+                <PropertyValue Property="Target" NavigationPropertyPath=""/>
+            </Record>
+        </Collection>
+    </Annotation>
+
+    <Annotation Term="UI.HeaderInfo">
+        <Record>
+            <PropertyValue Property="Title">
+                <Record Type="UI.DataField">
+                    <PropertyValue Property="Value" Path="name"/>
+                </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+                <Record Type="UI.DataField">
+                    <PropertyValue Property="Value" Path="category"/>
+                </Record>
+            </PropertyValue>
+        </Record>
+    </Annotation>
+
+    <Annotation Term="UI.Facets">
+        <Collection>
+            <Record Type="UI.ReferenceFacet">
+                <PropertyValue Property="Label" String="General Information"/>
+                <PropertyValue Property="Target">
+                    <AnnotationPath>@UI.FieldGroup#General</AnnotationPath>
+                </PropertyValue>
+            </Record>
+        </Collection>
+    </Annotation>
+
+    <Annotation Term="UI.FieldGroup" Qualifier="General">
+        <Record>
+            <PropertyValue Property="Data">
+                <Collection>
+                    <Record Type="UI.DataField">
+                        <PropertyValue Property="Label" String="ID"/>
+                        <PropertyValue Property="Value" Path="ID"/>
+                    </Record>
+                    <Record Type="UI.DataField">
+                        <PropertyValue Property="Label" String="Name"/>
+                        <PropertyValue Property="Value" Path="name"/>
+                    </Record>
+                    <Record Type="UI.DataField">
+                        <PropertyValue Property="Label" String="Description"/>
+                        <PropertyValue Property="Value" Path="description"/>
+                    </Record>
+                    <Record Type="UI.DataField">
+                        <PropertyValue Property="Label" String="Category"/>
+                        <PropertyValue Property="Value" Path="category"/>
+                    </Record>
+                    <Record Type="UI.DataField">
+                        <PropertyValue Property="Label" String="Unit of Measure"/>
+                        <PropertyValue Property="Value" Path="unitOfMeasure"/>
+                    </Record>
+                    <Record Type="UI.DataField">
+                        <PropertyValue Property="Label" String="Created At"/>
+                        <PropertyValue Property="Value" Path="createdAt"/>
+                    </Record>
+                </Collection>
+            </PropertyValue>
+        </Record>
+    </Annotation>
+
+</Annotations>
